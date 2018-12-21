@@ -26,17 +26,78 @@
 // });
 
 
-// 整理上式
+var todoData = [
+    {
+        content: "吃午餐",
+        createdAt: 1
+    },
+    {
+        content: "吃晚餐",
+        createdAt: 1000
+    }
+];
+
+//讀取資料
+function render(todoData){
+    //把資料渲染到頁面中
+    var $ul = $("ul");
+    var HTML = "";
+
+    for(var i = 0; i < todoData.length; i++){
+        HTML = HTML + `
+        <li>
+            <span class="delete">
+                刪除
+            </span>
+            ${todoData[i].content} 
+            ${moment(todoData[i].createdAt).format("MM/DD hh:mm")}
+        </li>`;
+    };
+
+    $ul.append(HTML);
+
+};
+
+render(todoData);
+
+// 整理最上式，寫入資料
 $("#addTodoBtn").on("click", function(event){
         event.preventDefault();
         // 在定義的變數前加上$方便自己辨識他是一個jq物件
         var $addTodoInput = $("#addTodoTnput");
-        var newTodoText = $addTodoInput.val();
+        var newTodoText = $addTodoInput.val().trim();
 
         // 如果使用者沒有輸入任何值則停止函式
         if(!newTodoText) return;
 
-        $("ul").append(`<li>${newTodoText} ${moment().format("MM/DD hh:mm")}</li>`);
+        //在li最前方加上刪除，並給他一個class用於之後指定
+        // $("ul").append(`<li><span class="delete">刪除</span>${newTodoText} ${moment().format("MM/DD hh:mm")}</li>`);
     
+        //把使用者輸入的新資料存進既有todoData
+        var newTodoData = {
+            content: newTodoText,
+            //.valueOf：把moment抓出的時間轉換成從預設時間起算經過的毫秒數
+            createdAt: moment().valueOf()
+        };
+
+        todoData.push(newTodoData);
+
+        //清空頁面上既有ul內的全部舊資料
+        $("ul").empty();
+
+        //再次render完整的todoData
+        render(todoData);
+
         $addTodoInput.val("");
+    });
+
+
+//li .特定class：找尋底下所有特定class
+//li>.特定class：找尋「底下一層」的特定class
+
+//將監聽器綁在ul上，但實際觸發監聽器的為ul底下的.delete
+    $("ul").on("click", ".delete", function(){
+        //用this指定到ul底下的delete，再用parent選擇到上一層的父元素li，並執行刪除整個li
+        $(this).parent("li").remove();
+
     });
