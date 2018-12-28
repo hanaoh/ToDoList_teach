@@ -25,17 +25,23 @@
 //     $("#addTodoTnput").val("");
 // });
 
+//uuid js
+
 
 var todoData = [
-    {
-        content: "吃午餐",
-        createdAt: 1
-    },
-    {
-        content: "吃晚餐",
-        createdAt: 1000
-    }
+    // {
+    //     id: uuid(),
+    //     content: "吃午餐",
+    //     createdAt: 1
+    // },
+    // {
+    //     id: uuid(),
+    //     content: "吃晚餐",
+    //     createdAt: 1000
+    // }
 ];
+
+
 
 //讀取資料
 function render(todoData){
@@ -45,7 +51,7 @@ function render(todoData){
 
     for(var i = 0; i < todoData.length; i++){
         HTML = HTML + `
-        <li>
+        <li id="${todoData[i].id}">
             <span class="delete">
                 刪除
             </span>
@@ -53,6 +59,9 @@ function render(todoData){
             ${moment(todoData[i].createdAt).format("MM/DD hh:mm")}
         </li>`;
     };
+
+    //清空頁面上既有ul內的全部舊資料
+    $("ul").empty();
 
     $ul.append(HTML);
 
@@ -75,15 +84,14 @@ $("#addTodoBtn").on("click", function(event){
     
         //把使用者輸入的新資料存進既有todoData
         var newTodoData = {
+            //賦予資料一個唯一的id
+            id: uuid(),
             content: newTodoText,
             //.valueOf：把moment抓出的時間轉換成從預設時間起算經過的毫秒數
             createdAt: moment().valueOf()
         };
 
         todoData.push(newTodoData);
-
-        //清空頁面上既有ul內的全部舊資料
-        $("ul").empty();
 
         //再次render完整的todoData
         render(todoData);
@@ -98,6 +106,26 @@ $("#addTodoBtn").on("click", function(event){
 //將監聽器綁在ul上，但實際觸發監聽器的為ul底下的.delete
     $("ul").on("click", ".delete", function(){
         //用this指定到ul底下的delete，再用parent選擇到上一層的父元素li，並執行刪除整個li
-        $(this).parent("li").remove();
+        // $(this).parent("li").remove();
+
+        // .attr：取用某個值，即可指定更精確
+        // $(this).parent("li").attr("");
+
+        //先刪除資料庫內的資料
+        var idToDelete = $(this).parent("li").attr("id");
+        
+        //除文字模板的{}以外，{}內只有一行的情況下可刪除{}來簡化函式
+        todoData = todoData.filter(function(todo){
+            if(todo.id === idToDelete) return false;
+            else return true;
+        });
+
+        //重新rander一次
+
+        render(todoData);
+        
 
     });
+
+
+    

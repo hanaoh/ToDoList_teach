@@ -6,20 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TodoList</title>
 
+    <link rel="stylesheet" href="./style.css">
     <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
   <script src="./moment.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/node-uuid/1.4.8/uuid.js"></script>
 </head>
 <body>
     <!-- 網頁標題 -->
-    <div id="header">
-        <h1>待辦事項清單</h1>
+    <div class="header">
+        <!-- BEM命名法：XXX（主class）__（雙底線）OOO（子class） -->
+        <h1 class="header__title">待辦事項清單</h1>
     </div>
 
     <!-- 代辦事項輸入及顯示區域 -->
-    <div id="main">
+    <div class="container">
         <p>請輸入待辦事項</p>
         <h1>我的待辦事項</h1>
 

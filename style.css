@@ -1,0 +1,31 @@
+/* 全體選擇器 */
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Microsoft JhengHei";
+}
+
+/* 標籤選擇器 */
+body{    
+    background: linear-gradient(to right,#f8fbf8,#e6eae3); 
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+/* class或其他選擇器 */
+.header{
+    background: #b8d200;
+    color: #0d0015;
+    padding: 16px;
+    margin-bottom:32px;
+    text-align: center;
+}
+
+.header__title{
+    font-size: 30px;
+}
+
+.container{
+    max-width: 400px;
+    margin: 0 auto;
+}
