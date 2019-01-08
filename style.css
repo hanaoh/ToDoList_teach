@@ -29,3 +29,34 @@ body{
     max-width: 400px;
     margin: 0 auto;
 }
+
+.container__title{
+    background: #b8d200;
+    color: #0d0015;
+    font-size: 24px;
+    padding: 8px;
+}
+
+.container__form{
+    display: flex;
+    /* 分配多出的空間 */
+    /* justify-content: center; */
+}
+
+.container__form input{
+    /* 把多出來的空間以百分比分配給指定元素 */
+    flex-grow: 4;
+    font-size: 18px;
+    padding: 6px;
+    border: none;
+}
+
+.container__form button{
+    /* 把多出來的空間以百分比分配給指定元素 */
+    flex-grow: 1;
+    font-size: 18px;
+    padding: 6px;
+    background: #0d0015;
+    color: white;
+    border: none;
+}

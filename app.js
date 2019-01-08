@@ -67,6 +67,25 @@ function render(todoData){
 
 };
 
+// 檢查待辦事項輸入值的函式
+function validate(newTodoText){
+    var isValid = true;
+    // 檢查newTodoText是否為空
+    if(newTodoText === ""){
+        isValid = false;
+    };
+
+    // 檢查newTodoText是否重複
+    for(var i = 0; i < todoData.length; i++){
+        if(newTodoText === todoData[i].content){
+            isValid = false;
+        };
+    };
+
+    // return結果
+    return isValid;
+};
+
 render(todoData);
 
 // 整理最上式，寫入資料
@@ -77,7 +96,16 @@ $("#addTodoBtn").on("click", function(event){
         var newTodoText = $addTodoInput.val().trim();
 
         // 如果使用者沒有輸入任何值則停止函式
-        if(!newTodoText) return;
+        // if(!newTodoText) return;
+        
+        // 檢查newTodoText是否為不合適的值
+        var isValid = validate(newTodoText);
+        // if(isValid === false){
+        //     return;
+        // };
+        if(!isValid){
+            return;
+        };
 
         //在li最前方加上刪除，並給他一個class用於之後指定
         // $("ul").append(`<li><span class="delete">刪除</span>${newTodoText} ${moment().format("MM/DD hh:mm")}</li>`);
